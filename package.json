@@ -1,6 +1,6 @@
 {
   "name": "@gyoridavid/circuit-breaker",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Simple circuit breaker, port of gobreaker written in typescript",
   "main": "./lib/index.js",
   "scripts": {
