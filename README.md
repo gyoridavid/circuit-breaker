@@ -24,6 +24,22 @@ Simple [circuit breaker](https://martinfowler.com/bliki/CircuitBreaker.html) wri
         name: 'http-client breaker'
     });
 
+    interface HTTPResponse {
+        status: number,
+        body: any
+    }
+
+    try {
+        const response: HTTPResponse = breaker.execute<HTTPResponse>(async () => {
+            // async call that could fail
+            return { status: 200, body: { status: 'ok' } };
+        });
+    } catch(err: error) {
+        // check the error type
+        // if breaker is open it'll throw CBErrOpenState
+        // if breaker is half-open and we exceeded the maxRequests it'll throw CBErrTooManyRequests
+    }
+
 ```
 
 ## Configuration
