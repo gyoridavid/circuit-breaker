@@ -19,18 +19,27 @@ describe('CircuitBreaker', () => {
                 return 5;
             });
             expect(n).toBe(5);
+            expect(cb.toString()).toBe('closed');
         } catch (err) {
             expect(err).toBeUndefined();
         }
     });
 
 
-    test('default settings error path', async () => {
+    test('error path', async () => {
         const stateChangeMockFn = jest.fn();
         const cb = new CircuitBreaker({
             name: 'testBreaker',
             onStateChange: stateChangeMockFn,
-            timeout: 100,
+            timeout: 500,
+            maxRequests: 1,
+            interval: 0,
+            isSuccessful: (data) => {
+                return !(data instanceof Error);
+            },
+            readyToTrip: (counts): boolean => {
+                return counts.consecutiveFailures > 5;
+            }
         });
 
         const mockError = new Error('there\'s no spoon');
@@ -52,12 +61,13 @@ describe('CircuitBreaker', () => {
 
         expect(mockErrorFn.mock.calls.length).toBe(6);
         expect(stateChangeMockFn.mock.calls.length).toBe(1);
-        expect(cb.getState()).toBe(CBState.open);
+        expect(cb.toString()).toBe('open');
 
         // forward time so we get to half-open state
-        await sleep(103);
+        await sleep(505);
 
         expect(cb.getState()).toBe(CBState.halfOpen);
+        expect(cb.toString()).toBe('half-open');
 
         await expect(cb.execute<number>(mockSuccessFn)).resolves.toEqual(2);
         expect(stateChangeMockFn.mock.calls.length).toBe(3);
