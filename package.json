@@ -8,6 +8,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
+    "coverage": "npx codecov",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
@@ -17,7 +18,13 @@
     "type": "git",
     "url": "git+https://github.com/gyoridavid/circuit-breaker.git"
   },
-  "keywords": ["circuit-breaker", "gobreaker", "circuitbreaker", "circuit breaker", "cbreaker"],
+  "keywords": [
+    "circuit-breaker",
+    "gobreaker",
+    "circuitbreaker",
+    "circuit breaker",
+    "cbreaker"
+  ],
   "author": "David Gyori",
   "license": "Apache-2.0",
   "bugs": {
