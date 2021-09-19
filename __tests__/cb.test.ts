@@ -5,7 +5,7 @@ import { CBState } from "../lib/cb";
 const sleep = (milliSeconds: number) => {
     return new Promise(resolve => {
         setTimeout(resolve, milliSeconds);
-    })
+    });
 }
 
 describe('CircuitBreaker', () => {

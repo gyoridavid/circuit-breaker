@@ -34,7 +34,7 @@ export default class CB {
     };
     private onStateChange?: (name: string, from: CBState, to: CBState) => void;
     private isSuccessful: (data: unknown) => boolean = (data: unknown) => {
-        return data instanceof Error;
+        return !(data instanceof Error);
     };
 
     constructor(config: CBConfig) {
