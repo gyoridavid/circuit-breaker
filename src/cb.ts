@@ -25,7 +25,7 @@ export default class CB {
     private generation: number = 0;
     private counts: CBCount = new CBCount();
     private expiry: number = 0;
-    private maxRequests: number = 0;
+    private maxRequests: number = 1;
     private interval: number = 0;
     private timeout: number = 60000;
 

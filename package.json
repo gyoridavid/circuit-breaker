@@ -8,7 +8,7 @@
     "format": "prettier --write \"src/**/*.ts\" \"src/**/*.ts\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest --config jestconfig.json",
-    "coverage": "npx codecov",
+    "coverage": "jest --config jestconfig.json --collect-coverage && npx codecov",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
